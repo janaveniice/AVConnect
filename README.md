@@ -20,14 +20,26 @@ By fostering a sense of community and providing clear, actionable insights, AVCo
 ## How to run
 
 ### Create and activate virtual environment
-```python -m venv myenv``` <br>
+```bash
+python -m venv myenv
+```
+
 For windows
-```myenv\Scripts\activate``` <br>
+```bash
+myenv\Scripts\activate
+```
+
 For MAC/Linux
-```source myenv/bin/activate``` <br>
+```bash
+source myenv/bin/activate
+```
 
 ### Install required packages
-```pip install -r requirements.txt```
+```bash
+pip install -r requirements.txt
+```
 
 ### To run Flask server
-```python AVConnect.py```
+```bash
+python AVConnect.py
+```
