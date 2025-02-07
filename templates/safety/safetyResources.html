@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+<!-- Link to your indv stylesheets. Change to directory of your css -->
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/safety/safeStyle.css') }}">
+{% endblock %}
+
+<!-- Title of the page -->
+{% block title %}Safety Resources{% endblock %}
+
+<!-- Content of the page -->
+{% block content %}
+    <!-- Safety Records and Resources Tabs -->
+    <div class="btn-group safety-tabs" role="group" aria-label="Safety Tabs">
+        <a href="{{ url_for('safety') }}" class="btn records-tab rounded-pill">Records</a>
+        <a href="{{ url_for('safety_resources') }}" class="btn records-tab rounded-pill active">Resources</a>
+    </div>
+
+    <!-- Safety Resources Section -->
+    <h1 class="mt-3"><strong>Safety Resources</strong></h1>
+    <p class="text-secondary">View resources video to solve your issues</p>
+    
+    <!-- Video Section -->
+    <div class="mt-4">
+        <div class="list-group">
+            {% if resources %}
+            {% for resource in resources %}
+            <div class="list-group-item d-flex align-items-center">
+                <!-- Icon Section -->
+                <div class="me-3">
+                    <i class="fa-brands fa-youtube fa-2x"></i>
+                </div>
+                <!-- Video Title -->
+                <form action="{{ url_for('safety_resources_details') }}" method="POST";>
+                    <input type="hidden" name="resource_id" value="{{ resource._id }}">
+                    <button type="submit" class="text-decoration-underline text-primary resource-title ml-3" data-title="{{ resource.resourceName }}">
+                        {{ resource.resourceName }}
+                    </button>
+                </form>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="list-group-item">No videos found.</div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

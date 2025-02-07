@@ -1,0 +1,355 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+{% endblock %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+    <!-- alert for messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div id="alert-container">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-float" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <h1><strong>Dashboard</strong></h1>
+    <p class="text-secondary">Manage your AV Settings</p>
+
+    <div class="row">
+        <!-- Left Section: AV Info -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title"><strong>AV Settings</strong></h3>
+                    <!-- Battery Level Card -->                    
+                    <div class="d-flex shadow-sm rounded mb-4 border">
+                        <div class="icon-container align-content-center px-3" style="background-color: #D6CDF4;">
+                            <svg width="64" height="33" viewBox="0 0 64 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M58.25 9.625H59.3438C61.155 9.625 62.625 11.095 62.625 12.9063V19.4688C62.625 21.28 61.155 22.75 59.3438 22.75H58.25M10.125 9.625H29.8125V22.75H10.125V9.625ZM7.9375 31.5H51.6875C53.428 31.5 55.0972 30.8086 56.3279 29.5779C57.5586 28.3472 58.25 26.678 58.25 24.9375V7.4375C58.25 5.69702 57.5586 4.02782 56.3279 2.79711C55.0972 1.5664 53.428 0.875 51.6875 0.875H7.9375C6.19702 0.875 4.52782 1.5664 3.29711 2.79711C2.0664 4.02782 1.375 5.69702 1.375 7.4375V24.9375C1.375 26.678 2.0664 28.3472 3.29711 29.5779C4.52782 30.8086 6.19702 31.5 7.9375 31.5Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                
+                        </div>
+                        <div class="text-container ml-4 py-3">
+                            <h4 class="stat-title"><strong>Battery Level</strong></h4>
+                            <div class=" {{ 'text-danger' if (dashboard.battery | replace('%', '') | int) < 50 else 'text-warning' if (dashboard.battery | replace('%', '') | int) < 70 else 'text-success' }}"
+                                style="font-size: 150%;" aria-valuenow="{{ dashboard.battery | replace('%', '') }}"
+                                aria-valuemin="0" aria-valuemax="100">{{ dashboard.battery }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tire Pressure -->
+                    <div class="d-flex shadow-sm rounded mb-4 border">
+                        <div class="icon-container align-content-center px-4" style="background-color: #D6CDF4;">
+                            <svg width="48" height="74" viewBox="0 0 48 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M46 19H41C40.6022 19 40.2206 19.158 39.9393 19.4393C39.658 19.7206 39.5 20.1022 39.5 20.5V28.5C39.5 28.8978 39.658 29.2794 39.9393 29.5607C40.2206 29.842 40.6022 30 41 30H41.5V52.5C41.4955 55.5532 40.3746 58.4993 38.3484 60.7833C36.3223 63.0673 33.5308 64.5315 30.5 64.9V20.5C30.5 20.1022 30.342 19.7206 30.0607 19.4393C29.7794 19.158 29.3978 19 29 19H23V11H35.5C36.9587 11 38.3576 10.4205 39.3891 9.38909C40.4205 8.35764 41 6.95869 41 5.5C41 4.04131 40.4205 2.64236 39.3891 1.61091C38.3576 0.579462 36.9587 3.07396e-08 35.5 0H7.5C6.04131 3.07396e-08 4.64236 0.579462 3.61091 1.61091C2.57946 2.64236 2 4.04131 2 5.5C2 6.95869 2.57946 8.35764 3.61091 9.38909C4.64236 10.4205 6.04131 11 7.5 11H20V19H14C13.6022 19 13.2206 19.158 12.9393 19.4393C12.658 19.7206 12.5 20.1022 12.5 20.5V71H2C1.60218 71 1.22065 71.158 0.939341 71.4393C0.658036 71.7206 0.5 72.1022 0.5 72.5C0.5 72.8978 0.658036 73.2794 0.939341 73.5607C1.22065 73.842 1.60218 74 2 74H29C29.3978 74 29.7794 73.842 30.0607 73.5607C30.342 73.2794 30.5 72.8978 30.5 72.5V67.92C34.331 67.5452 37.8858 65.7593 40.4732 62.9094C43.0607 60.0595 44.4959 56.3493 44.5 52.5V30H46C46.3978 30 46.7794 29.842 47.0607 29.5607C47.342 29.2794 47.5 28.8978 47.5 28.5V20.5C47.5 20.1022 47.342 19.7206 47.0607 19.4393C46.7794 19.158 46.3978 19 46 19ZM7.5 8C6.83696 8 6.20107 7.73661 5.73223 7.26777C5.26339 6.79893 5 6.16304 5 5.5C5 4.83696 5.26339 4.20107 5.73223 3.73223C6.20107 3.26339 6.83696 3 7.5 3H35.5C36.163 3 36.7989 3.26339 37.2678 3.73223C37.7366 4.20107 38 4.83696 38 5.5C38 6.16304 37.7366 6.79893 37.2678 7.26777C36.7989 7.73661 36.163 8 35.5 8H7.5ZM27.5 71H15.5V22H27.5V71ZM44.5 27H42.5V22H44.5V27Z" fill="black"/>
+                            </svg>
+                        </div>
+                        <div class="text-container ml-4 py-3">
+                            <h4 class="stat-title"><strong>Tire Pressure</strong></h4>
+                            <div class=" {{ 'text-danger' if (dashboard.tirePressure | replace('%', '') | int) < 21 else 'text-warning' if (dashboard.tirePressure | replace('%', '') | int) < 50 else 'text-success' }}"
+                                style="font-size: 150%;" aria-valuenow="{{ dashboard.tirePressure | replace('%', '') }}"
+                                aria-valuemin="30" aria-valuemax="50">{{ dashboard.tirePressure }}
+                            </div>
+                            {% if (dashboard.tirePressure | replace(' psi', '') | int) < 30 %} <span
+                            class="text-danger">
+                            <i class="fas fa-exclamation-triangle" style="margin-right: 5px;"></i>
+                            Low tire pressure
+                            </span>
+                            <div class="mt-3">
+                                <a href="{{url_for('add_reminder')}}" data-bs-toggle="modal"
+                                    data-bs-target="#addReminderModal">Schedule a Maintenance</a> or <br>
+                                View <a href="{{ url_for('safety_resources') }}" class="text-center">Resource</a>
+                                For Guidance
+                            </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                    <!-- Update Settings Button to trigger the modal -->
+                    <div class="d-flex flex-column align-items-center pt-5 mt-5">
+                        <button class="btn mb-3" style="width: 60%; background-color: var(--contrast-black); color: var(--contrast-white);" data-bs-toggle="modal"
+                            data-bs-target="#updateSettingsModal">
+                            Sync AV Metrics
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section: Performance Tracking and Maintenance Reminders -->
+        <div class="col-md-6">
+            <!-- Performance Tracking Section -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h3 class="card-title"><strong>Battery Performance Tracking</strong></h3>
+                    <div class="text-center mb-4">
+                        <canvas id="batteryChart" class="img-fluid" style="width: 100%; height: 200px;"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maintenance Reminders Section -->
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3 class="card-title"><strong>Maintenance Reminders</strong></h3>
+                        <!-- Add Reminder Button to trigger the modal -->
+                        <button class="btn d-flex align-items-center justify-content-center"
+                            data-bs-toggle="modal" data-bs-target="#addReminderModal"
+                            style="width: 30px; height: 30px; border-radius: 50%; padding: 0;">
+                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.5 7.375V10.5M10.5 10.5V13.625M10.5 10.5H13.625M10.5 10.5H7.375M19.875 10.5C19.875 15.6777 15.6777 19.875 10.5 19.875C5.32233 19.875 1.125 15.6777 1.125 10.5C1.125 5.32233 5.32233 1.125 10.5 1.125C15.6777 1.125 19.875 5.32233 19.875 10.5Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <ul class="list-unstyled mb-0">
+                        {% if maintenance_reminders %}
+                        {% for reminder in maintenance_reminders %}
+                        <li class="card mb-3 p-3 shadow-sm">
+                            <div class="d-flex align-items-center">
+                                <!-- Date Section -->
+                                <div class="text-center me-3" style="min-width: 70px;">
+                                    <h4 class="mb-0">{{ reminder.formatted_date }}</h4>
+                                </div>
+
+                                <!-- Divider -->
+                                <div class="vr me-3"></div>
+
+                                <!-- Content Section -->
+                                <div class="flex-grow-1">
+                                    <h5 class="mb-0">{{ reminder.title }}</h5>
+                                    <p class="mb-1 text-muted">{{ reminder.description }}</p>
+                                    <small class="text-muted"><i class="fas fa-map-marker-alt"></i> {{ reminder.location
+                                        }}</small>
+                                </div>
+
+                                <!-- Actions (edit and delete) -->
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-md" data-bs-toggle="modal"
+                                        data-bs-target="#editReminderModal{{ reminder._id }}">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </button>
+                                    <form action="{{ url_for('delete_reminder', reminder_id=reminder._id) }}"
+                                        method="POST" class="ms-2"
+                                        onsubmit="return confirm('Are you sure you want to delete this reminder?');">
+                                        <button type="submit" class="btn btn-md">
+                                            <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10.2833 6.49995L9.995 13.9999M6.005 13.9999L5.71667 6.49995M14.0233 3.82495C14.3083 3.86828 14.5917 3.91411 14.875 3.96328M14.0233 3.82495L13.1333 15.3941C13.097 15.8651 12.8842 16.3051 12.5375 16.626C12.1908 16.9469 11.7358 17.1251 11.2633 17.1249H4.73667C4.26425 17.1251 3.80919 16.9469 3.46248 16.626C3.11578 16.3051 2.90299 15.8651 2.86667 15.3941L1.97667 3.82495M14.0233 3.82495C13.0616 3.67954 12.0948 3.56919 11.125 3.49411M1.97667 3.82495C1.69167 3.86745 1.40833 3.91328 1.125 3.96245M1.97667 3.82495C2.93844 3.67955 3.9052 3.56919 4.875 3.49411M11.125 3.49411V2.73078C11.125 1.74745 10.3667 0.927446 9.38333 0.896613C8.46135 0.867145 7.53865 0.867145 6.61667 0.896613C5.63333 0.927446 4.875 1.74828 4.875 2.73078V3.49411M11.125 3.49411C9.04477 3.33334 6.95523 3.33334 4.875 3.49411" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg> 
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Edit Reminder Modal -->
+                        <div class="modal fade" id="editReminderModal{{ reminder._id }}" tabindex="-1"
+                            aria-labelledby="editReminderModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Edit Reminder</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <form method="POST"
+                                        action="{{ url_for('edit_reminder', reminder_id=reminder._id) }}">
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="titleInput" class="form-label">Title</label>
+                                                <input type="text" name="title" class="form-control"
+                                                    value="{{ reminder.title }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="descriptionInput" class="form-label">Description</label>
+                                                <textarea name="description" class="form-control"
+                                                    required>{{ reminder.description }}</textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="dateInput" class="form-label">Date</label>
+                                                <input type="datetime-local" name="date" class="form-control" required
+                                                    value="{{ reminder.date }}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="locationInput" class="form-label">Location</label>
+                                                <input type="text" name="location" class="form-control"
+                                                    value="{{ reminder.location }}" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-center"> <!-- Center buttons -->
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary ms-2">Save Changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <li class="text-muted">No upcoming maintenance reminders.</li>
+                        {% endif %}
+                    </ul>
+                    <!-- View Reminders Button -->
+                    <a href="{{ url_for('view_all_reminders') }}" class="btn mt-3" style="background-color: var(--contrast-black); color: var(--contrast-white);">View all Reminders</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Sync AV Modal -->
+<div class="modal fade" id="updateSettingsModal" tabindex="-1" aria-labelledby="updateSettingsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"> <!-- Center the modal vertically -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateSettingsModalLabel">Sync AV Metrics</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateSettingsForm" method="POST" action="{{ url_for('update_settings') }}">
+                    <div class="mb-3">
+                        <label for="batteryInput" class="form-label">Battery Level (%)</label>
+                        <input type="number" id="batteryInput" name="battery" class="form-control"
+                            value="{{ dashboard.battery | replace('%', '') }}" required min="0" max="100">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tirePressureInput" class="form-label">Tire Pressure (psi)</label>
+                        <input type="number" id="tirePressureInput" name="tirePressure" class="form-control"
+                            value="{{ dashboard.tirePressure | replace(' psi', '') }}" required min="0" max="50">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="updateSettingsForm" class="btn" style="background-color: var(--contrast-black); color: var(--contrast-white)">Update Settings</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Schedule Modal -->
+<div class="modal fade" id="addReminderModal" tabindex="-1" aria-labelledby="addReminderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Schedule a Maintenance</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="{{ url_for('add_reminder') }}">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="titleInput" class="form-label">Title</label>
+                        <input type="text" name="title" class="form-control" required placeholder="Title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descriptionInput" class="form-label">Description</label>
+                        <textarea name="description" class="form-control" required
+                            placeholder="Add Message..."></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateInput" class="form-label">Date</label>
+                        <input type="datetime-local" name="date" class="form-control" required
+                            placeholder="Date and Time">
+                    </div>
+                    <div class="mb-3">
+                        <label for="locationInput" class="form-label">Location</label>
+                        <input type="text" name="location" class="form-control" required placeholder="Location">
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center"> <!-- Center buttons -->
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn" style="background-color: var(--contrast-black); color: var(--contrast-white);">Schedule Now</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const ctx = document.getElementById('batteryChart').getContext('2d');
+
+        // Get the current battery level from the backend
+        const batteryLevel = parseInt('{{ dashboard.battery | replace("%", "") }}'); // Current battery level
+        const initialLevel = 100; // Start from 100%
+        const labels = [];
+        const dataPoints = [];
+
+        // Calculate the number of points to generate
+        const steps = (initialLevel - batteryLevel) / 5;
+
+        // Generate timestamps and battery data
+        for (let i = 0; i <= steps; i++) {
+            const time = new Date(Date.now() - (i * 5 * 60 * 1000)); // 5 minutes intervals
+            labels.push(time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+            dataPoints.push(initialLevel - (i * 5)); // Decreasing by 5% every 5 minutes
+        }
+
+        // Add the final battery level point
+        labels.push(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+        dataPoints.push(batteryLevel); // Add the current battery level
+
+        // Create the chart
+        const batteryChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels.reverse(), // Reverse to show the latest time on the right
+                datasets: [{
+                    label: 'Battery Level',
+                    data: dataPoints,
+                    borderColor: 'rgba(200, 200, 200)',
+                    backgroundColor: '#D6CDF4',
+                    borderWidth: 2,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100, // Set maximum to 100%
+                        title: {
+                            display: true,
+                            text: 'Battery Level (%)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time'
+                        }
+                    }
+                }
+            }
+        });
+    });
+
+
+    // Fade out alert
+    $(document).ready(function () {
+        setTimeout(function () {
+            $('#alert-container .alert').fadeOut(1000, function () {
+                $(this).remove();
+            });
+        }, 1000);
+    });
+
+
+</script>
+
+{% endblock %}

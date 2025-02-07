@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+<!-- Link to your indv stylesheets. Change to directory of your css -->
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile/profileStyles.css') }}">
+{% endblock %}
+
+<!-- Title of the page -->
+{% block title %}User Profile{% endblock %}
+
+<!-- Content of the page -->
+{% block content %}
+    <h1><strong>User Profile</strong></h1>
+    <p class="text-secondary">View profile information here</p>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title"><strong>Details</strong></h3>
+            <p><strong>User Name:</strong> {{user.username}}</p>
+            <p><strong>Password:</strong> 
+                {% for char in user.password %}
+                    *
+                {% endfor %}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Your threads section -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body" style="max-height: 100vh; overflow-y: auto;">
+                    <h3 class="card-title">Your threads</h3>
+                    {% for thread in threads %}
+                        <div class="thread-item d-flex justify-content-between align-items-start mt-3">
+                            <div>
+                                <p><strong>{{ thread.subject }}</strong></p>
+                                <p>{{ thread.content }}</p>
+                            </div>
+                            <div class="thread-actions">
+                                <!-- Edit Button -->
+                                <!-- <button class="btn btn-link me-2">
+                                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.16665 3.16667H2.99998C2.07951 3.16667 1.33331 3.91286 1.33331 4.83334V14C1.33331 14.9205 2.07951 15.6667 2.99998 15.6667H12.1666C13.0871 15.6667 13.8333 14.9205 13.8333 14V9.83334M12.6548 1.98816C13.3057 1.33728 14.361 1.33728 15.0118 1.98816C15.6627 2.63903 15.6627 3.6943 15.0118 4.34518L7.857 11.5H5.49998L5.49998 9.14298L12.6548 1.98816Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>  
+                                </button> -->
+                                <!-- Delete Button -->
+                                <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteThreadConfirmationModal" data-thread-id="{{ thread._id }}">
+                                    <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.2833 6.49995L9.995 13.9999M6.005 13.9999L5.71667 6.49995M14.0233 3.82495C14.3083 3.86828 14.5917 3.91411 14.875 3.96328M14.0233 3.82495L13.1333 15.3941C13.097 15.8651 12.8842 16.3051 12.5375 16.626C12.1908 16.9469 11.7358 17.1251 11.2633 17.1249H4.73667C4.26425 17.1251 3.80919 16.9469 3.46248 16.626C3.11578 16.3051 2.90299 15.8651 2.86667 15.3941L1.97667 3.82495M14.0233 3.82495C13.0616 3.67954 12.0948 3.56919 11.125 3.49411M1.97667 3.82495C1.69167 3.86745 1.40833 3.91328 1.125 3.96245M1.97667 3.82495C2.93844 3.67955 3.9052 3.56919 4.875 3.49411M11.125 3.49411V2.73078C11.125 1.74745 10.3667 0.927446 9.38333 0.896613C8.46135 0.867145 7.53865 0.867145 6.61667 0.896613C5.63333 0.927446 4.875 1.74828 4.875 2.73078V3.49411M11.125 3.49411C9.04477 3.33334 6.95523 3.33334 4.875 3.49411" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>   
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Your comments section -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">Your comments</h3>
+                    {% for reply in replies %}
+                        <div class="thread-item d-flex justify-content-between align-items-start mt-3">
+                            <div>
+                                <p><strong>{{reply.thread_subject}}</strong></p>
+                                <p>{{reply.content}}</p>
+                            </div>
+                            <!-- delete button -->
+                            <div class="thread-actions">
+                                <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteCommentConfirmationModal" data-comment-id="{{ reply._id }}">
+                                    <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.2833 6.49995L9.995 13.9999M6.005 13.9999L5.71667 6.49995M14.0233 3.82495C14.3083 3.86828 14.5917 3.91411 14.875 3.96328M14.0233 3.82495L13.1333 15.3941C13.097 15.8651 12.8842 16.3051 12.5375 16.626C12.1908 16.9469 11.7358 17.1251 11.2633 17.1249H4.73667C4.26425 17.1251 3.80919 16.9469 3.46248 16.626C3.11578 16.3051 2.90299 15.8651 2.86667 15.3941L1.97667 3.82495M14.0233 3.82495C13.0616 3.67954 12.0948 3.56919 11.125 3.49411M1.97667 3.82495C1.69167 3.86745 1.40833 3.91328 1.125 3.96245M1.97667 3.82495C2.93844 3.67955 3.9052 3.56919 4.875 3.49411M11.125 3.49411V2.73078C11.125 1.74745 10.3667 0.927446 9.38333 0.896613C8.46135 0.867145 7.53865 0.867145 6.61667 0.896613C5.63333 0.927446 4.875 1.74828 4.875 2.73078V3.49411M11.125 3.49411C9.04477 3.33334 6.95523 3.33334 4.875 3.49411" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>    
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for delete thread confirmation -->
+    <div class="modal fade" id="deleteThreadConfirmationModal" tabindex="-1" aria-labelledby="deleteThreadConfirmationLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteThreadConfirmationLabel">Are you sure?</h5>
+                </div>
+                <div class="modal-body">
+                     This will permanently <strong>delete</strong> this thread.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form id="deleteThreadForm" method="POST">
+                        <button type="submit" class="btn" style="background-color: var(--contrast-black); color: var(--contrast-white);">Delete
+                            <svg width="17" height="12" viewBox="0 0 17 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1.5 7L5.5 11L15.5 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>                                
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for delete comment confirmation -->
+    <div class="modal fade" id="deleteCommentConfirmationModal" tabindex="-1" aria-labelledby="deleteCommentConfirmationLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteCommentConfirmationLabel">Are you sure?</h5>
+                </div>
+                <div class="modal-body">
+                     This will permanently <strong>delete</strong> this comment.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form id="deleteCommentForm" method="POST">
+                        <button type="submit" class="btn" style="background-color: var(--contrast-black); color: var(--contrast-white);">Delete
+                            <svg width="17" height="12" viewBox="0 0 17 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1.5 7L5.5 11L15.5 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>                                
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- alert for messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div id="alert-container">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-float" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Attach event listener to each delete button to set form action
+            document.querySelectorAll("[data-bs-target='#deleteThreadConfirmationModal']").forEach(button => {
+                button.addEventListener("click", function() {
+                    const threadId = this.getAttribute("data-thread-id");
+                    // Set the form action dynamically with the thread_id
+                    document.getElementById("deleteThreadForm").action = `/delete-thread/${threadId}`;
+                });
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Attach event listener to each delete button to set form action
+            document.querySelectorAll("[data-bs-target='#deleteCommentConfirmationModal']").forEach(button => {
+                button.addEventListener("click", function() {
+                    const commentId = this.getAttribute("data-comment-id");
+                    // Set the form action dynamically with the comment_id
+                    document.getElementById("deleteCommentForm").action = `/delete-comment/${commentId}`;
+                });
+            });
+        });
+
+        // Fade out alert
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#alert-container .alert').fadeOut(1000, function() {
+                    $(this).remove();
+                });
+            }, 1000);
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/faq/faqstyle.css') }}">
+{% endblock %}
+
+{% block title %}FAQ{% endblock %}
+
+{% block content %}
+    <div class="content-container" style="border: 2px red">
+        <h1><strong>FAQ and Help Section</strong></h1>
+        <h3 class="text-secondary">Find answers to frequently asked questions about AVConnect. Use the search bar to quickly locate information.</h3>
+
+        <div class="search-bar  ">
+            <input type="text" id="faq-search" placeholder="Search FAQs..." value="{{ query }}">
+            <button onclick="searchFAQs()">Search</button>
+        </div>
+
+        {% if no_match %}
+            <p>Sorry, no such FAQ found for "{{ query }}".</p>
+            {% if suggestion %}
+                <p>Did you mean: <a href="{{ url_for('faq', query=suggestion) }}">{{ suggestion }}</a>?</p>
+            {% endif %}
+        {% else %}
+
+            <div class="faq-list">
+                {% for faq in faqs %}
+                    <div class="faq-item border shadow-sm">
+                        <h3>{{ faq.question }}</h3>
+                        <p>{{ faq.answer }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if not no_match %}
+            <div class="page-tabs">
+                {% for i in range(1, total_pages + 1) %}
+                    <a href="{{ url_for('faq', page=i, query=query) }}" class="{% if page == i %}active{% endif %}">
+                        Page {{ i }}
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function searchFAQs() {
+            const query = document.getElementById("faq-search").value;
+            window.location.href = "/faq?query=" + encodeURIComponent(query);
+        }
+    </script>
+{% endblock %}

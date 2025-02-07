@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+<!-- Link to your indv stylesheets. Change to directory of your css -->
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/forum/threadStyle.css') }}">
+{% endblock %}
+
+<!-- Title of the page -->
+{% block title %}New thread{% endblock %}
+
+<!-- Content of the page -->
+{% block content %}
+<!-- Thread Form -->
+<!-- <a href="/forum" id="back-button"><button class="discussion-button">← Back to Discussion Forum</button></a> -->
+<div class="back-container mb-3">
+    <a href="/forum">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.3333 21L9.33333 16M9.33333 16L14.3333 11M9.33333 16L22.6667 16M1 16C1 7.71573 7.71573 0.999999 16 1C24.2843 1 31 7.71573 31 16C31 24.2843 24.2843 31 16 31C7.71573 31 0.999999 24.2843 1 16Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Back to Forum
+    </a>
+</div>
+<h1><b>New Thread</b></h1>
+<p class="text-secondary">Start a new thread for the community to discuss</p>
+<div class="comment-form border shadow-sm">
+    <form id="thread-form" class="thread-form">
+        <label for="thread-subject">Thread subject</label>
+        <input type="text" id="thread-subject" name="thread-subject" placeholder="Enter thread subject" required>
+
+        <label for="thread-content">Content</label>
+        <textarea id="thread-content" name="thread-content" placeholder="Enter content" required></textarea>
+        <button type="submit" class="submit-button">Submit</button>
+    </form>
+</div>
+
+<!-- Popup Modal -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <p>Thread submitted successfully!</p>
+    </div>
+</div>
+
+</div>
+
+<!-- Popup Modal -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <p>Thread submitted successfully!</p>
+    </div>
+</div>
+
+<script>
+    document.getElementById('thread-form').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Gather form data
+        const subject = document.getElementById('thread-subject').value;
+        const content = document.getElementById('thread-content').value;
+
+        // Send the form data to the server
+        fetch("/submit_thread", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ subject: subject, content: content })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Redirect to /forum after successful submission
+                    window.location.href = '/forum';
+                } else {
+                    alert("Failed to submit thread: " + data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    });
+
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+    }
+</script>
+{% endblock %}

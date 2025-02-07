@@ -1,0 +1,170 @@
+:root {
+    --primary-color: #D6CDF4;
+    --primary-error: #FD6161;
+    --contrast-black: #333333;
+    --contrast-white: #FFFFFF;
+    --contrast-grey: #686868;
+    --hover-color: #bba8e5;
+    --active-color: #a084e3;
+}
+
+html, body {
+    font-family: 'Lato', sans-serif !important;
+    color: var(--contrast-black);
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+header {
+    background-color: var(--primary-color);
+    padding: 10px 30px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header a,
+.indv-nav a,
+.indv-dashboard a,
+.logout-btn a {
+    color: var(--contrast-black);
+    text-decoration: none;
+}
+
+header a:hover,
+.indv-nav a:hover,
+.indv-dashboard a:hover,
+.logout-btn a:hover {
+    color: var(--contrast-black);
+}
+
+.main-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+nav {
+    background-color: var(--primary-color);
+    width: 18%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 15px;
+    border-radius: 0 10px 10px 0;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.nav-container {
+    width: 100%;
+}
+
+.indv-nav,
+.indv-dashboard {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.indv-nav:hover,
+.indv-dashboard:hover {
+    background-color: var(--hover-color);
+    cursor: pointer;
+}
+
+.indv-nav svg,
+.indv-dashboard svg,
+.logout-btn svg {
+    margin-right: 15px;
+}
+
+.indv-dashboard svg {
+    margin-right: 15px;
+}
+
+button {
+    background-color: var(--contrast-white);
+    color: var(--contrast-black);
+    border: none;
+    padding: 10px 20px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: var(--hover-color);
+    cursor: pointer;
+}
+
+.logout-btn {
+    position: absolute;
+    bottom: 30px;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--contrast-white);
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: var(--hover-color);
+    cursor: pointer;
+    transform: translateY(-2px);
+}
+
+.logout-btn a {
+    width: 100%;
+    text-align: center;
+    color: var(--contrast-black);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.logout-btn a:hover {
+    color: var(--hover-text-color);
+}
+
+.profile {
+    border-radius: 50px;
+    padding: 5px 15px;
+    transition: all 0.3s ease;
+}
+
+.profile:hover {
+    background-color: var(--hover-color);
+    cursor: pointer;
+}
+
+/* Sidebar active state */
+.active-nav {
+    background-color: var(--active-color);
+    color: var(--contrast-white) !important;
+}
+
+.indv-nav a,
+.indv-dashboard a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.indv-nav a span,
+.indv-dashboard a span {
+    flex-grow: 1;
+    text-align: left;
+}

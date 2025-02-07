@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+<!-- Link to your indv stylesheets. Change to directory of your css -->
+{% block head %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+{% endblock %}
+
+{% block content %}
+    <!-- Flash Messages Section -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {% for message in messages %}
+        {{ message }}<br>
+        {% endfor %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="back-container mb-3">
+        <a href="{{ url_for('dashboard') }}" style="color: var(--contrast-black); text-decoration: none;"> 
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.3333 21L9.33333 16M9.33333 16L14.3333 11M9.33333 16L22.6667 16M1 16C1 7.71573 7.71573 0.999999 16 1C24.2843 1 31 7.71573 31 16C31 24.2843 24.2843 31 16 31C7.71573 31 0.999999 24.2843 1 16Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>                
+            Back to Dashboard</a>    
+    </div>
+    <div class="d-flex justify-content-between align-items-center mb-1">
+        <!-- Title -->
+        <h3 class="mb-0"><strong>Maintenance Reminders</strong></h3>
+    
+        <!-- Add Reminder Button -->
+        <button class="btn btn-circle" data-bs-toggle="modal" data-bs-target="#addReminderModal" 
+            style="width: 50px; height: 50px; border-radius: 50%;">
+            <svg width="35" height="35" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.5 7.375V10.5M10.5 10.5V13.625M10.5 10.5H13.625M10.5 10.5H7.375M19.875 10.5C19.875 15.6777 15.6777 19.875 10.5 19.875C5.32233 19.875 1.125 15.6777 1.125 10.5C1.125 5.32233 5.32233 1.125 10.5 1.125C15.6777 1.125 19.875 5.32233 19.875 10.5Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Future Reminders Section -->
+    <h4><strong>Upcoming Reminders</strong></h4>
+    <ul class="list-group">
+        {% if future_reminders %}
+        {% for reminder in future_reminders %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <b>{{ reminder.title }}</b>
+                <br><small style="color: grey;">{{ reminder.formatted_date }}</small>
+                <br>
+                <small><strong>Description:</strong> {{ reminder.description }}</small><br>
+                <small><strong>Location:</strong> {{ reminder.location }}</small>
+            </div>
+            <div class="d-flex align-items-center">
+                <button class="btn btn-md" data-bs-toggle="modal"
+                    data-bs-target="#editReminderModal{{ reminder._id }}">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+                <form action="{{ url_for('delete_reminder', reminder_id=reminder._id) }}" method="POST" class="ms-2"
+                    onsubmit="return confirm('Are you sure you want to delete this reminder?');">
+                    <button type="submit" class="btn btn-md">
+                        <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.2833 6.49995L9.995 13.9999M6.005 13.9999L5.71667 6.49995M14.0233 3.82495C14.3083 3.86828 14.5917 3.91411 14.875 3.96328M14.0233 3.82495L13.1333 15.3941C13.097 15.8651 12.8842 16.3051 12.5375 16.626C12.1908 16.9469 11.7358 17.1251 11.2633 17.1249H4.73667C4.26425 17.1251 3.80919 16.9469 3.46248 16.626C3.11578 16.3051 2.90299 15.8651 2.86667 15.3941L1.97667 3.82495M14.0233 3.82495C13.0616 3.67954 12.0948 3.56919 11.125 3.49411M1.97667 3.82495C1.69167 3.86745 1.40833 3.91328 1.125 3.96245M1.97667 3.82495C2.93844 3.67955 3.9052 3.56919 4.875 3.49411M11.125 3.49411V2.73078C11.125 1.74745 10.3667 0.927446 9.38333 0.896613C8.46135 0.867145 7.53865 0.867145 6.61667 0.896613C5.63333 0.927446 4.875 1.74828 4.875 2.73078V3.49411M11.125 3.49411C9.04477 3.33334 6.95523 3.33334 4.875 3.49411" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg> 
+                    </button>
+                </form>
+            </div>
+        </li>
+
+        <!-- Edit Reminder Modal -->
+        <div class="modal fade" id="editReminderModal{{ reminder._id }}" tabindex="-1"
+            aria-labelledby="editReminderModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Reminder</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="POST" action="{{ url_for('edit_reminder', reminder_id=reminder._id) }}">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="titleInput" class="form-label">Title</label>
+                                <input type="text" name="title" class="form-control" value="{{ reminder.title }}"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="descriptionInput" class="form-label">Description</label>
+                                <textarea name="description" class="form-control"
+                                    required>{{ reminder.description }}</textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="dateInput" class="form-label">Date</label>
+                                <input type="datetime-local" name="date" class="form-control" required
+                                    value="{{ reminder.date }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="locationInput" class="form-label">Location</label>
+                                <input type="text" name="location" class="form-control" value="{{ reminder.location }}"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center"> <!-- Center buttons -->
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary ms-2">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <li class="list-group-item">No upcoming reminders found.</li>
+        {% endif %}
+    </ul>
+
+    <!-- Past Reminders Section -->
+    <h4 class="mt-4"><strong>Past Reminders</strong></h4>
+    <ul class="list-group">
+        {% if past_reminders %}
+        {% for reminder in past_reminders %}
+        <li class="list-group-item d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <b>{{ reminder.title }}</b>
+                <br><small style="color: grey;">{{ reminder.formatted_date }}</small>
+                <br>
+                <small><strong>Description:</strong> {{ reminder.description }}</small><br>
+                <small><strong>Location:</strong> {{ reminder.location }}</small>
+            </div>
+        </li>
+        {% endfor %}
+        {% else %}
+        <li class="list-group-item">No past reminders found.</li>
+        {% endif %}
+    </ul>
+
+    <!-- Add Reminder Modal -->
+    <div class="modal fade" id="addReminderModal" tabindex="-1" aria-labelledby="addReminderModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Reminder</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="POST" action="{{ url_for('add_reminder') }}">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="titleInput" class="form-label">Title</label>
+                            <input type="text" name="title" class="form-control" required placeholder="Title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="descriptionInput" class="form-label">Description</label>
+                            <textarea name="description" class="form-control" required
+                                placeholder="Add Message..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dateInput" class="form-label">Date</label>
+                            <input type="datetime-local" name="date" class="form-control" required
+                                placeholder="Date and Time">
+                        </div>
+                        <div class="mb-3">
+                            <label for="locationInput" class="form-label">Location</label>
+                            <input type="text" name="location" class="form-control" required placeholder="Location">
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center"> <!-- Center buttons -->
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary ms-2">Add Reminder</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    // Fade out alert
+    $(document).ready(function () {
+        setTimeout(function () {
+            $('#alert-container .alert').fadeOut(1000, function () {
+                $(this).remove();
+            });
+        }, 1000);
+    });
+</script>
+{% endblock %}

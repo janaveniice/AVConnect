@@ -1,0 +1,160 @@
+.discussion-button {
+    padding: 10px 20px;
+    color: white;
+    width: 250px;
+    margin-bottom: 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.discussion-button:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.comment-form {
+    max-width: 100%;
+    background-color: var(--secondary-color);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    justify-content: space-between;
+}
+
+.thread-form label {
+    font-weight: bold;
+    display: block;
+}
+
+.thread-form input,
+.thread-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    resize: none;
+    margin-bottom: 20px;
+}
+
+.thread-form textarea {
+    height: 164px;
+}
+
+.popup {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+.popup-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    /* Could be more or less, depending on screen size */
+    max-width: 400px;
+    /* Maximum width */
+    text-align: center;
+    border-radius: 4px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#comment-content {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.submit-button {
+    display: inline-block;
+    width: 8%;
+    padding: 10px 20px;
+    background-color: var(--highlight-color);
+    color: white;
+    background-color: var(--contrast-black);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.submit-button:hover {
+    background-color: #333;
+}
+
+.delete-button {
+    display: inline-block;
+    width: 8%;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: var(--highlight-color);
+    color: white;
+    background-color: #FF0000;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+}
+
+.alert-float {
+    position: fixed;
+    top: 90px;
+    left: 55%;
+    transform: translateX(-50%);
+    z-index: 1050;
+    transition: opacity 1s ease-in-out;
+    opacity: 1;
+    background-color: #EEF1F4;
+    color: var(--contrast-black)
+}
+
+a {
+    color: var(--contrast-black);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--contrast-black);
+    text-decoration: none;
+}

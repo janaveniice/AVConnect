@@ -1,0 +1,324 @@
+{
+    "users": [
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b80",
+            "username": "Kelly King",
+            "password": "password0"
+        },
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b81",
+            "username": "Laura Lee",
+            "password": "password1"
+        },
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b82",
+            "username": "Michael Miller",
+            "password": "password2"
+        },
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b83",
+            "username": "Nina Nelson",
+            "password": "password3"
+        },
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b84",
+            "username": "Oscar Oliver",
+            "password": "password4"
+        },
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b85",
+            "username": "testing",
+            "password": "testing123"
+        }
+    ],
+    "maintenances": [
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b85",
+            "user_id": "60d5f9e2b7f2c8e7e74f6b80",
+            "title": "Maintenance Task 1",
+            "description": "Description for maintenance task 1",
+            "date": "2024-10-27T12:00:00",
+            "location": "Location 5"
+        },
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b86",
+            "user_id": "60d5f9e2b7f2c8e7e74f6b82",
+            "title": "Maintenance Task 2",
+            "description": "Description for maintenance task 2",
+            "date": "2024-10-27T12:00:00",
+            "location": "Location 10"
+        }
+    ],
+    "dashboard": [
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b80",
+            "user_id": "60d5f9e2b7f2c8e7e74f6b80",
+            "battery": "85%",
+            "tirePressure": "32.5 psi",
+            "performance": "Performance metric 1"
+        },
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b81",
+            "user_id": "60d5f9e2b7f2c8e7e74f6b81",
+            "battery": "75%",
+            "tirePressure": "35.0 psi",
+            "performance": "Performance metric 2"
+        },
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b83",
+            "user_id": "60d5f9e2b7f2c8e7e74f6b82",
+            "battery": "80%",
+            "tirePressure": "33.0 psi",
+            "performance": "Performance metric 4"
+        },
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b84",
+            "user_id": "60d5f9e2b7f2c8e7e74f6b83",
+            "battery": "70%",
+            "tirePressure": "31.5 psi",
+            "performance": "Performance metric 5"
+        },
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b82",
+            "user_id": "60d5f9e2b7f2c8e7e74f6b84",
+            "battery": "90%",
+            "tirePressure": "30.0 psi",
+            "performance": "Performance metric 3"
+        }
+    ],
+    "discussion_threads": [
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b89",
+            "user_id": "60d5f9e2b7f2c8e7e74f6b80",
+            "subject": "Discussion Topic 1",
+            "content": "This is the content of discussion thread 1.",
+            "timestamp": "2024-06-09T09:31:45Z"
+        },
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b8a",
+            "user_id": "60d5f9e2b7f2c8e7e74f6b81",
+            "subject": "Discussion Topic 2",
+            "content": "This is the content of discussion thread 2.",
+            "timestamp": "2024-08-27T10:52:46Z"
+        }
+    ],
+    "replies": [
+        {
+            "user_id": "60d5f9e2b7f2c8e7e74f6b83",
+            "thread_id": "60d5f9e2b7f2c8e7e74f6b89",
+            "content": "This is a reply to thread 1.",
+            "timestamp": "2023-10-01T09:23:15"
+        },
+        {
+            "user_id": "60d5f9e2b7f2c8e7e74f6b82",
+            "thread_id": "60d5f9e2b7f2c8e7e74f6b8a",
+            "content": "This is a reply to thread 2.",
+            "timestamp": "2024-11-02T10:37:50"
+        },
+        {
+            "user_id": "60d5f9e2b7f2c8e7e74f6b83",
+            "thread_id": "60d5f9e2b7f2c8e7e74f6b89",
+            "content": "This is a reply to thread 1.",
+            "timestamp": "2024-09-20T11:45:30"
+        },
+        {
+            "user_id": "60d5f9e2b7f2c8e7e74f6b84",
+            "thread_id": "60d5f9e2b7f2c8e7e74f6b89",
+            "content": "This is a reply to thread 1.",
+            "timestamp": "2024-11-01T12:05:00"
+        }
+    ],
+    "records": [
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b90",
+            "recordName": "Accident Rate",
+            "value": "0.02 per 100,000 miles"
+        },
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b91",
+            "recordName": "Average Speed",
+            "value": "35 mph"
+        },
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b92",
+            "recordName": "Distance Traveled",
+            "value": "150 miles"
+        },
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b93",
+            "recordName": "Sensor Performance",
+            "value": "98% Accuracy"
+        },
+        {
+            "_id": "60d5f9e2b7f2c8e7e74f6b94",
+            "recordName": "Battery Health",
+            "value": "90%"
+        }
+    ],
+    "resources": [
+        {
+            "resourceName": "Resource ",
+            "url": "http://example.com/resource"
+        }
+    ],
+    "reports": [
+        {
+            "id": 1,
+            "title": "Three-Car Accident Slows Traffic on KPE",
+            "content": "A three-car collision on the Kallang-Paya Lebar Expressway (KPE) has caused traffic delays in both directions. Motorists are advised to avoid the area.",
+            "location": "Kallang-Paya Lebar Expressway, Singapore",
+            "date": "2024-10-28",
+            "author": "Maxwell Carter",
+            "description": "A three-car accident has resulted in traffic congestion along the KPE. Emergency responders are on-site to assist those involved and clear the vehicles. Drivers should expect delays or choose alternate routes.",
+            "severity": "High"
+        },
+        {
+            "id": 2,
+            "title": "Vehicle Breakdown on SLE Near Mandai",
+            "content": "A vehicle breakdown on the Seletar Expressway (SLE) near Mandai has led to minor traffic disruptions. Motorists should proceed with caution.",
+            "location": "Seletar Expressway, Singapore",
+            "date": "2024-10-28",
+            "author": "Maxwell Carter",
+            "description": "A broken-down vehicle on the SLE near the Mandai exit is causing minor traffic delays. Road assistance is on the way to resolve the issue.",
+            "severity": "Low"
+        },
+        {
+            "id": 3,
+            "title": "Heavy Traffic on TPE Due to Morning Commute",
+            "content": "Morning rush hour has caused significant traffic on the Tampines Expressway (TPE) with delays expected until late morning.",
+            "location": "Tampines Expressway, Singapore",
+            "date": "2024-10-28",
+            "author": "Maxwell Carter",
+            "description": "Morning commuters are facing heavy traffic on the TPE. Authorities recommend alternative routes where possible as traffic is expected to remain dense.",
+            "severity": "Moderate"
+        },
+        {
+            "id": 4,
+            "title": "Road Blockage on BKE Following Accident",
+            "content": "An accident has caused a road blockage on the Bukit Timah Expressway (BKE) near Dairy Farm Road. Emergency services are attending to the scene.",
+            "location": "Bukit Timah Expressway, Singapore",
+            "date": "2024-10-28",
+            "author": "Maxwell Carter",
+            "description": "A collision on the BKE has led to a blocked lane near Dairy Farm Road. Responders are currently addressing the situation. Motorists are urged to avoid the area or expect long delays.",
+            "severity": "High"
+        },
+        {
+            "id": 5,
+            "title": "Lorry Breakdown on CTE Near Braddell Exit",
+            "content": "A lorry breakdown on the Central Expressway (CTE) near the Braddell exit has caused traffic to slow. Motorists should proceed carefully.",
+            "location": "Central Expressway, Singapore",
+            "date": "2024-10-28",
+            "author": "Maxwell Carter",
+            "description": "A lorry has broken down on the CTE near the Braddell exit, resulting in slower traffic flow. Motorists are advised to be cautious as they approach this section.",
+            "severity": "Low"
+        },
+        {
+            "id": 6,
+            "title": "Traffic Delays Due to Roadworks on Nicoll Highway",
+            "content": "Ongoing roadworks on Nicoll Highway are causing delays during peak hours. Commuters should plan for additional travel time.",
+            "location": "Nicoll Highway, Singapore",
+            "date": "2024-10-28",
+            "author": "Maxwell Carter",
+            "description": "Roadworks on Nicoll Highway have led to significant congestion during peak hours. Authorities are managing traffic flow, but drivers should expect delays and plan accordingly.",
+            "severity": "Moderate"
+        },
+        {
+            "id": 7,
+            "title": "Heavy Traffic on MCE Due to Tunnel Maintenance",
+            "content": "Tunnel maintenance on the Marina Coastal Expressway (MCE) has slowed traffic, with diversions in place. Commuters are advised to expect delays.",
+            "location": "Marina Coastal Expressway, Singapore",
+            "date": "2024-10-28",
+            "author": "Maxwell Carter",
+            "description": "Maintenance work in the MCE tunnel is impacting traffic, resulting in delays. Diversions have been set up, and drivers are encouraged to consider alternative routes.",
+            "severity": "Moderate"
+        },
+        {
+            "id": 8,
+            "title": "Accident Causes Delays at Jurong Island Checkpoint",
+            "content": "An accident near Jurong Island Checkpoint has caused traffic delays. Travelers should expect slower processing times.",
+            "location": "Jurong Island Checkpoint, Singapore",
+            "date": "2024-10-28",
+            "author": "Maxwell Carter",
+            "description": "Traffic is delayed at Jurong Island Checkpoint due to an accident. Authorities are working to clear the area, but delays are anticipated.",
+            "severity": "Moderate"
+        },
+        {
+            "id": 9,
+            "title": "Flash Flood Warning for KPE Due to Heavy Rains",
+            "content": "Flash floods are expected along low-lying areas of the Kallang-Paya Lebar Expressway (KPE) due to intense rainfall. Motorists should exercise caution.",
+            "location": "Kallang-Paya Lebar Expressway, Singapore",
+            "date": "2024-10-28",
+            "author": "Maxwell Carter",
+            "description": "Heavy rains have caused flash flooding concerns on the KPE. Motorists are advised to drive cautiously and avoid the area if possible.",
+            "severity": "High"
+        },
+        {
+            "id": 10,
+            "title": "Car Fire on ECP Near Marine Parade",
+            "content": "A car fire on the East Coast Parkway (ECP) near Marine Parade exit has slowed traffic. Firefighters are on the scene to control the blaze.",
+            "location": "East Coast Parkway, Singapore",
+            "date": "2024-10-28",
+            "author": "Maxwell Carter",
+            "description": "A vehicle caught fire on the ECP near the Marine Parade exit, causing traffic delays. Emergency responders are on-site, and the situation is being closely monitored.",
+            "severity": "High"
+        }
+    ],
+    "faqs": [
+        {
+            "question": "What is AVConnect?",
+            "answer": "Your central hub for everything related to Autonomous Vehicles (AVs). Whether youre an experienced AV user or just starting to explore the world of self-driving cars, AVConnect provides a space to connect with a community of like-minded individuals. Share your  experiences, learn from others, and explore the wealth of resources dedicated to AV safety and best practices. With AVConnect, you are not driving alone."
+        },
+        {
+            "question": "AVConnect's Motto",
+            "answer": "Provide a user-friendly platform where AV drivers can interact with similar individuals, manage their AV settings, and access vital safety resources and records."
+        },
+        {
+            "question": "AVConnect's Vision",
+            "answer": "Become a go-to hub for AV drivers, fostering a safe and accessible autonomous driving embraced globally."
+        },
+        {
+            "question": "Navigation",
+            "answer": "The dashboard, discussion forum, and safety sections are available on the sidebar menu on the left side of the screen. To access history of threads and comments in discussion forum, click on your User Profile on the top right side of the screen."
+        },
+        {
+            "question": "Interface",
+            "answer": "The AVConnect interface offers intuitive navigation with a sidebar for quick access to key sections, clear icons and labels for easy recognition, a consistent layout to reduce confusion, and options for customization, ensuring a seamless and accessible user experience."
+        },
+        {
+            "question": "How do I sync my AV metrics?",
+            "answer": "At the AV Settings section in Dashboard, click the Sync AV metrics button. This action will take a while and metrics will be reflected once syncing is done."
+        },
+        {
+            "question": "How do I schedule a maintenance for my AV?",
+            "answer": "To schedule a maintenance, click the + button on the Maintenance Schedule section in Dashboard. Fill out maintenance details such as Maintenance Title, Description, Location, and Date. Click Submit button afterwards."
+        },
+        {
+            "question": "How do I create a new thread?",
+            "answer": "To create a thread, click New thread button on the right hand side of the screen. Fill out thread subject and content and click Submit button."
+        },
+        {
+            "question": "How do I edit and/or delete a thread/comment?",
+            "answer": "To perform actions like edit and delete on threads/ comments, navigate to User Profile on the top right side of the screen. Find the thread/comment to edit/delete and click the respective button."
+        },
+        {
+            "question": "How do I view safety records and resources?",
+            "answer": "To view safety records and resources, navigate to Safety and click on respective sections. Click on specific safety records and resources to view them individually."
+        },
+        {
+            "question": "How does AVConnect protect my data?",
+            "answer": "We use advanced encryption to protect your personal information and follow industry standards for data security and privacy."
+        },
+        {
+            "question": "What personal information is required to use AVConnect?",
+            "answer": "Personal information such as your name are only required. Your data is secure and only used to enhance your experience."
+        },
+        {
+            "question": "How can I contact support if I need help?",
+            "answer": "If you are facing issues regarding the website and require assistance from our team, you can email us directly at support@avconnect.com"
+        },
+        {
+            "question": "I am in need of real-time support, who do I contact for support?",
+            "answer": "In case of emergency, you can call our hotline at 12345678 or call Hospitals directly at 995."
+        }
+    ]
+}

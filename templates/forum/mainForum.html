@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/forum/discussionStyle.css') }}">
+{% endblock %}
+
+{% block title %}Discussion Forum{% endblock %}
+
+{% block content %}
+<h1><b>Discussion Forum</b></h1>
+<p class="text-secondary">Engage in AV-related discussions with the community</p>
+
+<!-- Search and Sort -->
+<div class="search-sort-container">
+    <form method="GET" action="/forum" class="search-form" onsubmit="return handleSearchSubmit()">
+        <input type="text" id="search-input" name="search" placeholder="Search for a thread" aria-label="Search for a thread" value="{{ request.args.get('search', '') }}">
+        <button type="submit" class="search-button">Search</button>
+    </form>
+</div>
+
+<div class="discussion-header">
+    <div>
+        <label for="sort">Sort by:</label>
+        <select id="sort" onchange="sortThreads()" style="width: 100px; height: 30px;">
+            <option value="recent">Recent</option>
+            <option value="popular">Popular</option>
+        </select>
+    </div>
+    <a href="/new_thread" id="new-thread">
+        <button class="discussion-button">New Thread</button>
+    </a>
+</div>
+
+<!-- Thread List -->
+<div id="threads-container">
+    {% if posts %}
+    {% for post in posts %}
+
+    <div class="thread border shadow-sm" data-timestamp="{{ post['timestamp'] }}" data-replies="{{ post['replies'] }}">
+            <a href="/thread/{{ post['_id'] }}" style="text-decoration: none; color: black;">
+                <div class="thread-title">{{ post['subject'] }}</div>
+
+        <div class="thread-author">By {{ post['user']['username'] }} at {{ post['timestamp']|datetimeformat }}</div>
+        <div class="thread-content">{{ post['content'] }}</div>
+        <div class="thread-meta">
+            <span class="replies">💬 {{ post['replies'] }} replies</span>
+        </div>
+        </a>
+    </div>
+
+    {% endfor %}
+    {% else %}
+    <div class="no-threads">
+        <p>No threads available. Start the conversation!</p>
+    </div>
+    {% endif %}
+</div>
+
+<div class="pagination" id="pagination"></div>
+
+<!-- alert for messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    <div id="alert-container">
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-float" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endwith %}
+
+<script>
+     function handleSearchSubmit() {
+        const searchInput = document.getElementById('search-input');
+        if (searchInput.value.trim() === '') {
+            window.location.href = '/forum'; // Redirect to the forum page without search query
+            return false; // Prevent the form from submitting
+        }
+        return true; // Allow the form to submit
+    }
+    
+    function sortThreads() {
+        const sortBy = document.getElementById('sort').value;
+        const threads = Array.from(document.querySelectorAll('.thread'));
+
+        threads.sort((a, b) => {
+            if (sortBy === 'recent') {
+                // Convert to Date for timestamp sorting
+                console.log("Filter by recent")
+                return new Date(b.dataset.timestamp) - new Date(a.dataset.timestamp);
+            } else if (sortBy === 'popular') {
+                console.log("Filter by number of replies")
+                // Convert to Number for replies sorting
+                return Number(b.dataset.replies) - Number(a.dataset.replies);
+            }
+        });
+
+        // Reattach sorted threads to the container
+        const container = document.querySelector('#threads-container');
+        container.innerHTML = '';
+        threads.forEach(thread => container.appendChild(thread));
+    }
+
+        // Fade out alert
+        $(document).ready(function() {
+        setTimeout(function() {
+            $('#alert-container .alert').fadeOut(1000, function() {
+                $(this).remove();
+            });
+        }, 1000);
+    });
+</script>
+
+{% endblock %}

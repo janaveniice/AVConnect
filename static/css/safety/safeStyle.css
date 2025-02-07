@@ -1,0 +1,109 @@
+:root {
+    --primary-color: #D6CDF4;
+    --primary-error: #FD6161;
+    --contrast-black: #333333;
+    --contrast-white: #FFFFFF;
+}
+
+/* Safety Tabs */
+.safety-tabs .btn {
+    background-color: #E7E2E2;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    margin-right: 10px;
+}
+.records-tab.active,
+.resources-tab.active {
+    background-color: var(--contrast-black);
+    color: var(--contrast-white);
+}
+
+/* Stats Cards */
+.stats-card {
+    display: flex;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+}
+
+.icon-container {
+    background-color: var(--primary-color);
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+}
+
+.icon-container i {
+    font-size: 3em;
+    color: var(--contrast-black);
+}
+
+.text-container {
+    background-color: var(--contrast-white);
+    padding: 15px;
+    width: 75%;
+}
+
+.stat-title {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.stat-value {
+    font-size: 1.2em;
+}
+
+/* Reports List */
+.report-title,
+.resource-title {
+    position: relative; /* Required for absolute positioning of the tooltip */
+    white-space: nowrap;
+}
+
+.report-title::after,
+.resource-title::after {
+    content: attr(data-title); /* Use data-title for the tooltip content */
+    position: absolute;
+    bottom: 100%; /* Position above the link */
+    transform: translateX(-50%); /* Adjust for center alignment */
+    background-color: var(--contrast-black);
+    color: var(--contrast-white);
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap; /* Prevent line breaks */
+    visibility: hidden;
+}
+
+.report-title:hover::after,
+.resource-title:hover::after {
+    visibility: visible; /* Show tooltip on hover */
+}
+
+.circle {
+    width: 12px; /* Adjust size as needed */
+    height: 12px; /* Adjust size as needed */
+    border-radius: 50%;
+    margin-right: 5px; /* Space between circle and text */
+}
+
+.report-content {
+    flex: 1;
+}
+
+.severity-content {
+    min-width: 100px;
+    text-align: right;
+    margin-left: auto;
+}
+
+.details-container {
+    padding: 20px;
+    margin: auto;
+    outline: 1px solid #E0E0E0;
+}
+
+.back-link{
+    font-size: 1.5em
+}
